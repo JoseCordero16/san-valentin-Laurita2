@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Amor 💖</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f8b4b4;
+    overflow:hidden;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* TARJETA CERRADA */
+.card-closed{
+    width:80vw;
+    max-width:250px;
+    aspect-ratio:1/1;
+    background:#ff5c5c;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    cursor:pointer;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+    position:absolute;
+    transition:0.5s;
+}
+
+.card-closed h2{
+    background:white;
+    padding:12px;
+    border-radius:8px;
+    color:black;
+    font-size:18px;
+    text-align:center;
+}
+
+.heart-icon{
+    font-size:45px;
+}
+
+/* TARJETA ABIERTA */
+.card-open{
+    width:90vw;
+    max-width:600px;
+    height:60vh;
+    max-height:400px;
+    background:white;
+    display:flex;
+    position:absolute;
+    transform:scale(0);
+    transition:0.5s;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.left{
+    width:50%;
+    background:#f3f3f3;
+}
+
+.right{
+    width:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.right h2{
+    font-size:clamp(16px, 4vw, 24px);
+}
+
+/* RESPONSIVE PARA CELULAR */
+@media(max-width:600px){
+    .card-open{
+        flex-direction:column;
+        height:auto;
+    }
+
+    .left{
+        display:none;
+    }
+
+    .right{
+        width:100%;
+        padding:30px;
+    }
+}
+
+/* CORAZONES */
+.heart{
+    position:absolute;
+    top:-20px;
+    font-size:20px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-closed" onclick="openCard()">
+    <div class="heart-icon">❤️</div>
+    <h2>Click para Abrir</h2>
+</div>
+
+<div class="card-open" id="card">
+    <div class="left"></div>
+    <div class="right">
+        <h2>
+            Aquí escribe tu mensaje hermoso 💖
+        </h2>
+    </div>
+</div>
+
+<script>
+function openCard(){
+    document.querySelector(".card-closed").style.transform="scale(0)";
+    let card = document.getElementById("card");
+    card.style.transform="scale(1)";
+    startHearts();
+}
+
+function startHearts(){
+    for(let i=0;i<40;i++){
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration = (3 + Math.random()*4) + "s";
+        heart.style.fontSize = (15 + Math.random()*25)+"px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },7000);
+    }
+}
+</script>
+
+</body>
+</html>
